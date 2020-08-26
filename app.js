@@ -35,4 +35,10 @@ expression.oninput = function () {
     result.innerHTML =
       '<span style="color: red;">' + error.toString() + "</span>";
   }
+
+  try {
+    const latex = parsed
+      ? parsed.toTex({ parenthesis: parenthesis, implicit: implicit })
+      : ""; // export the expression to LaTeX
+  } catch (err) {}
 };
