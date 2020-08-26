@@ -5,7 +5,7 @@ let parenthesis = "keep";
 let implicit = "hide";
 
 // initialize with an example expression
-expression.value = `# You can add comment by placing asterisk in front of your input
+expression.value = `# You can add comment by placing "#" before any line
 #watch the examples below
 #this is the current
 I = 3ampere
