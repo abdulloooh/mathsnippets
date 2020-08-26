@@ -5,8 +5,7 @@ let parenthesis = "keep";
 let implicit = "hide";
 
 // initialize with an example expression
-expression.value = `
-# You can add comment by placing asterisk in front of your input
+expression.value = `# You can add comment by placing asterisk in front of your input
 #watch the examples below
 #this is the current
 I = 3ampere
@@ -40,5 +39,9 @@ expression.oninput = function () {
     const latex = parsed
       ? parsed.toTex({ parenthesis: parenthesis, implicit: implicit })
       : ""; // export the expression to LaTeX
+
+    // display and re-render the expression
+    const elem = MathJax.Hub.getAllJax("pretty")[0];
+    MathJax.Hub.Queue(["Text", elem, latex]);
   } catch (err) {}
 };
