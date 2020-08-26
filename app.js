@@ -5,18 +5,7 @@ let parenthesis = "keep";
 let implicit = "hide";
 
 // initialize with an example expression
-expression.value = `# You can add comment by placing "#" before any line
-#watch the examples below
-#this is the current
-I = 3ampere
-#this is  the voltage
-V= 5volts
-#now we calculate the power
-P = I * V
-#energy
-t = 3 s
-E = P * t
-`;
+
 pretty.innerHTML =
   "$$" +
   math.parse(expression.value).toTex({ parenthesis: parenthesis }) +
