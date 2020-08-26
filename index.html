@@ -59,7 +59,20 @@
         <th>Expression</th>
 
         <td>
-          <textarea id="expression" cols="50" rows="12"></textarea>
+          <textarea id="expression" cols="50" rows="12">
+// initialize with an example expression
+# You can add comment by placing "#" before any line
+#watch the examples below
+#this is the current
+I = 3ampere
+#this is  the voltage
+V= 5volts
+#now we calculate the power
+P = I * V
+#energy
+t = 3 s
+E = P * t
+          </textarea>
         </td>
 
         <tr>
@@ -119,25 +132,14 @@
     <script src="https://unpkg.com/mathjs@7.2.0/dist/math.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML.js"></script>
     <script>
+      let tage = document.getElementsByTagName("math-equation");
+      console.log(tage);
       const expression = document.getElementById("expression");
       const pretty = document.getElementById("pretty");
       const result = document.getElementById("result");
       let parenthesis = "keep";
       let implicit = "hide";
 
-      // initialize with an example expression
-      expression.value = expression.value = `# You can add comment by placing "#" before any line
-#watch the examples below
-#this is the current
-I = 3ampere
-#this is  the voltage
-V= 5volts
-#now we calculate the power
-P = I * V
-#energy
-t = 3 s
-E = P * t
-`;
       pretty.innerHTML =
         "$$" +
         math.parse(expression.value).toTex({ parenthesis: parenthesis }) +
