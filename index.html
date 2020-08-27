@@ -17,7 +17,14 @@
         font-size: 11pt;
         font-family: "Alata", sans-serif;
       }
-
+      p.problems span.third {
+        width: 33%;
+        float: left;
+      }
+      p.problems {
+        display: flex;
+        align-items: center;
+      }
       textarea {
         font-family: "Alata", sans-serif;
         font-size: 18px;
@@ -59,8 +66,9 @@
         <th>Expression</th>
 
         <td>
+          <!-- initialize with an example expression -->
           <textarea id="expression" cols="50" rows="12">
-# You can add comment by placing "#" before any line
+#You can add comment by placing "#" before any line
 #watch the examples below
 #this is the current
 I = 3ampere
@@ -70,8 +78,9 @@ V= 5volts
 P = I * V
 #energy
 t = 3 s
-E = P * t
-          </textarea>
+E = P * t;
+             </textarea
+          >
         </td>
 
         <tr>
@@ -131,21 +140,26 @@ E = P * t
     <script src="https://unpkg.com/mathjs@7.2.0/dist/math.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML.js"></script>
     <script>
-      const expression = document.getElementById("expression");
+      let expression = document.getElementById("expression");
       const pretty = document.getElementById("pretty");
       const result = document.getElementById("result");
       let parenthesis = "keep";
       let implicit = "hide";
 
-      // initialize with an example expression
+      document.getElementById("expression").value = expression.value;
 
-      pretty.innerHTML =
-        "$$" +
-        math.parse(expression.value).toTex({ parenthesis: parenthesis }) +
-        "$$";
+      function formatPretty(node, options) {
+        // return `${node.value}  <br>`;
+      }
+
+      pretty.innerHTML = ` $$ ${math
+        .parse(expression.value)
+        .toTex({ parenthesis: parenthesis, handler: formatPretty })}  $$`;
       result.innerHTML = math.format(math.evaluate(expression.value));
 
       expression.oninput = function () {
+        let expression = document.getElementById("expression");
+        document.getElementById("expression").value = expression.value;
         let parsed = null;
 
         try {
@@ -161,9 +175,14 @@ E = P * t
           const latex = parsed
             ? parsed.toTex({ parenthesis: parenthesis, implicit: implicit })
             : ""; // export the expression to LaTeX
-
           // display and re-render the expression
           const elem = MathJax.Hub.getAllJax("pretty")[0];
+
+          MathJax.Hub.Config({
+            CommonHTML: {
+              linebreaks: { automatic: true },
+            },
+          });
           MathJax.Hub.Queue(["Text", elem, latex]);
         } catch (err) {}
       };
